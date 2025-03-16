@@ -41,12 +41,11 @@ export default function Header({
         scrolled ? "bg-background/80 backdrop-blur-md shadow-sm" : ""
       }`}
     >
-      {/* Mobile menu button - only visible on smaller screens */}
       {toggleSidebar && (
         <Button
           variant="ghost"
           size="icon"
-          className="md:hidden"
+          className="md:hidden ml-2"
           onClick={toggleSidebar}
         >
           <Menu className="h-5 w-5" />
@@ -54,7 +53,6 @@ export default function Header({
         </Button>
       )}
 
-      {/* Desktop/Tablet sidebar collapse toggle - hidden on mobile */}
       {toggleCollapsed && (
         <Button
           variant="ghost"

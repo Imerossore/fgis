@@ -11,6 +11,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
+import NiaLogo from "./nia-logo";
 
 interface SideNavProps {
   className?: string;
@@ -55,17 +56,15 @@ export default function SideNav({
             </Button>
           )}
 
-          <div
-            className={cn(
-              "font-bold text-xl text-center text-foreground",
-              collapsed && !isMobile && "text-base"
-            )}
-          >
+          <div className="flex justify-center items-center gap-2">
             {collapsed && !isMobile ? (
-              <span className="text-primary">D</span>
+              <NiaLogo size={30} href="/" />
             ) : (
               <>
-                Dash<span className="text-primary">Board</span>
+                <NiaLogo size={60} href="/" />
+                <h1 className="text-5xl font-semibold text-primary dark:text-foreground">
+                  NIA
+                </h1>
               </>
             )}
           </div>
@@ -76,7 +75,6 @@ export default function SideNav({
             const isActive = pathname === item.href;
             const Icon = item.icon;
 
-            // When collapsed, wrap in tooltip
             const NavLink = () => (
               <Link
                 href={item.href}
@@ -91,7 +89,6 @@ export default function SideNav({
                 )}
                 onClick={isMobile && onClose ? onClose : undefined}
               >
-                {/* Active indicator */}
                 {isActive && (
                   <div
                     className={cn(
@@ -113,8 +110,6 @@ export default function SideNav({
                 />
 
                 {(!collapsed || isMobile) && <span>{item.label}</span>}
-
-                {/* Subtle gradient highlight for active item */}
                 {isActive && (
                   <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent -z-10" />
                 )}
@@ -149,7 +144,11 @@ export default function SideNav({
           )}
         >
           <div className="text-xs text-muted-foreground">
-            {collapsed && !isMobile ? "© 2025" : "&copy; 2025 DashBoard"}
+            {collapsed && !isMobile ? (
+              <span>&copy; {new Date().getFullYear()}</span>
+            ) : (
+              <span>&copy; {new Date().getFullYear()} FGIS</span>
+            )}
           </div>
         </div>
       </nav>

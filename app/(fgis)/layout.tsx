@@ -10,16 +10,31 @@ export default function HomeLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // For mobile sidebar visibility
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  // For sidebar collapsed state
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
-  // Close sidebar when screen size changes to desktop
+  // Handle responsive default states
   useEffect(() => {
     const handleResize = () => {
+      // Close mobile sidebar on larger screens
       if (window.innerWidth >= 768) {
-        // md breakpoint
         setSidebarOpen(false);
       }
+
+      // Set default collapsed state based on screen size
+      if (window.innerWidth >= 1024) {
+        // lg breakpoint
+        setSidebarCollapsed(false); // Default expanded on large screens
+      } else if (window.innerWidth >= 768) {
+        // md breakpoint
+        setSidebarCollapsed(true); // Default collapsed on medium screens
+      }
     };
+
+    // Initialize on mount
+    handleResize();
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -39,6 +54,7 @@ export default function HomeLayout({
 
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
   const closeSidebar = () => setSidebarOpen(false);
+  const toggleCollapsed = () => setSidebarCollapsed(!sidebarCollapsed);
 
   return (
     <div className="h-full">
@@ -53,12 +69,21 @@ export default function HomeLayout({
         />
       </div>
 
-      {/* Desktop Layout */}
-      <div className="hidden md:grid grid-cols-[300px_1fr] grid-rows-[auto_1fr] h-full">
+      {/* Desktop & Tablet Layout */}
+      <div
+        className="hidden md:grid grid-rows-[auto_1fr] h-full transition-all duration-300"
+        style={{
+          gridTemplateColumns: sidebarCollapsed ? "90px 1fr" : "300px 1fr",
+        }}
+      >
         <div className="row-span-2 sticky top-0 h-dvh p-3 z-10">
-          <SideNav />
+          <SideNav collapsed={sidebarCollapsed} />
         </div>
-        <Header />
+        <Header
+          toggleSidebar={toggleSidebar}
+          toggleCollapsed={toggleCollapsed}
+          isCollapsed={sidebarCollapsed}
+        />
         <main className="border overflow-auto flex items-center justify-center">
           {children}
         </main>
@@ -69,11 +94,11 @@ export default function HomeLayout({
         <Header toggleSidebar={toggleSidebar} />
         <main className="flex-1 border overflow-auto">{children}</main>
 
-        {/* Mobile Sidebar Overlay - translucent overlay */}
+        {/* Mobile Sidebar Overlay */}
         {sidebarOpen && (
           <div
             className="fixed inset-0 bg-black/50 backdrop-blur-sm z-30"
-            onClick={closeSidebar}
+            onClick={toggleSidebar}
           />
         )}
 

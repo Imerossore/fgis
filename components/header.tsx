@@ -3,14 +3,20 @@
 import { ModeToggle } from "./mode-toggle";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useEffect, useState } from "react";
-import { Menu } from "lucide-react";
+import { Menu, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface HeaderProps {
   toggleSidebar?: () => void;
+  toggleCollapsed?: () => void;
+  isCollapsed?: boolean;
 }
 
-export default function Header({ toggleSidebar }: HeaderProps) {
+export default function Header({
+  toggleSidebar,
+  toggleCollapsed,
+  isCollapsed,
+}: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -31,7 +37,7 @@ export default function Header({ toggleSidebar }: HeaderProps) {
 
   return (
     <header
-      className={`border-b py-2 pl-4 flex items-center sticky top-0 z-10 transition-all duration-200 ${
+      className={`border-b py-2 flex items-center sticky top-0 z-10 transition-all duration-200 ${
         scrolled ? "bg-background/80 backdrop-blur-md shadow-sm" : ""
       }`}
     >
@@ -40,11 +46,31 @@ export default function Header({ toggleSidebar }: HeaderProps) {
         <Button
           variant="ghost"
           size="icon"
-          className="md:hidden mr-2"
+          className="md:hidden"
           onClick={toggleSidebar}
         >
           <Menu className="h-5 w-5" />
           <span className="sr-only">Toggle menu</span>
+        </Button>
+      )}
+
+      {/* Desktop/Tablet sidebar collapse toggle - hidden on mobile */}
+      {toggleCollapsed && (
+        <Button
+          variant="ghost"
+          size="icon"
+          className="hidden md:flex"
+          onClick={toggleCollapsed}
+          title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+        >
+          {isCollapsed ? (
+            <PanelLeftOpen className="h-5 w-5" />
+          ) : (
+            <PanelLeftClose className="h-5 w-5" />
+          )}
+          <span className="sr-only">
+            {isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+          </span>
         </Button>
       )}
 

@@ -69,21 +69,19 @@ export default function HomeLayout({
         <Header toggleSidebar={toggleSidebar} />
         <main className="flex-1 border overflow-auto">{children}</main>
 
-        {/* Mobile Sidebar Overlay */}
+        {/* Mobile Sidebar Overlay - translucent overlay */}
         {sidebarOpen && (
           <div
-            className="fixed inset-0 bg-black/50 z-30"
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-30"
             onClick={closeSidebar}
           />
         )}
 
         {/* Mobile Sidebar */}
         <div
-          className={`
-          fixed inset-y-0 left-0 z-40 w-[80%] max-w-[300px] p-3
-          transform transition-transform duration-300 ease-in-out
-          ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
-        `}
+          className={`fixed inset-y-0 left-0 z-40 w-[80%] max-w-[300px] p-3
+            transform transition-transform duration-300 ease-in-out
+            ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
         >
           <SideNav isMobile onClose={closeSidebar} />
         </div>

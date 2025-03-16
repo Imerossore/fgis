@@ -28,7 +28,7 @@ export default function SideNav({
 
   return (
     <aside className={cn("h-full", className)}>
-      <nav className="h-full bg-white/10 dark:bg-black/20 backdrop-blur-md border border-white/20 dark:border-white/10 shadow-lg rounded-xl flex flex-col overflow-hidden">
+      <nav className="h-full bg-background  backdrop-blur-md border border-white/20 dark:border-white/10 shadow-lg rounded-xl flex flex-col overflow-hidden">
         <div className="p-4 border-b border-white/10 dark:border-white/5 relative">
           {isMobile && onClose && (
             <Button

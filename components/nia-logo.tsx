@@ -14,6 +14,7 @@ export default function NiaLogo({
       alt="NIA Logo"
       width={size}
       height={size}
+      priority
     />
   );
 

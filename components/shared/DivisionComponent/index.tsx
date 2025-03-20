@@ -12,7 +12,7 @@ export default function DivisionComponent({
   divisions,
 }: DivisionComponentProps) {
   return (
-    <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 grid-rows-2">
+    <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 grid-rows-2 ">
       {divisions.map((division) => (
         <DivisionCard
           key={division.id}

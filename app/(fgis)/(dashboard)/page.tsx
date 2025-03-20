@@ -42,7 +42,7 @@ export default async function DashboardPage() {
   ];
 
   return (
-    <div className="grid grid-cols-1 grid-rows-2 pr-3 pt-3 md:pl:0">
+    <div className="grid grid-cols-1 grid-rows-2 pr-3 pt-3 md:pl-0 pl-3">
       <DivisionComponent divisions={divisions} />
       <section>chart</section>
     </div>

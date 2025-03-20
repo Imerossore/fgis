@@ -117,9 +117,9 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
   /* Dark mode gradient background */
-  --background-start: oklch(25.38% 0.0312 263.78);
-  --background-end: oklch(29.59% 0.0532 263.29);
-  --background-gradient: linear-gradient(to bottom right, var(--background-start), var(--background-end));
+  --background-start: oklch(27.77% 0.0712 270.15);
+  --background-end: oklch(35.62% 0 0);
+  --background-gradient: linear-gradient(to right, var(--background-start), var(--background-end));
 }
 
 @layer base {
@@ -137,6 +137,7 @@
 
 
 }
+
 
 @layer utilities {
   .bg-gradient-root {

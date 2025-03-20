@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function DashboardLoading() {
   return (
-    <div className="p-3 flex flex-col h-[calc(100dvh-80px)]">
+    <div className="p-3 pl-0 flex flex-col h-[calc(100dvh-80px)]">
       <div className="h-[40dvh] overflow-y-auto pb-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-4">
           {Array(8)

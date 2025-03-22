@@ -1,6 +1,5 @@
 "use client";
 
-import { ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -11,15 +10,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { NavItem } from "@/lib/types";
 
-interface NavLinkProps {
-  href: string;
-  name: string;
-  icon: ReactNode;
-  exact?: boolean;
-}
-
-export function NavLink({ href, name, icon, exact = false }: NavLinkProps) {
+export function NavLink({ href, name, icon: Icon, exact = false }: NavItem) {
   const pathname = usePathname();
   const { isExpanded } = useSideNav();
 
@@ -58,7 +51,7 @@ export function NavLink({ href, name, icon, exact = false }: NavLinkProps) {
           isActive ? "text-primary" : "text-primary/70 group-hover:text-primary"
         )}
       >
-        {icon}
+        <Icon />
       </div>
 
       {isExpanded && <span>{name}</span>}

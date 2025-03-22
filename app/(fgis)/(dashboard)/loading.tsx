@@ -2,15 +2,15 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function DashboardLoading() {
   return (
-    <div className="p-3 pl-0 flex flex-col h-[calc(100dvh-80px)]">
-      <div className="h-[40dvh] overflow-y-auto pb-4">
+    <div className="p-3 pl-0 flex flex-col h-[calc(100dvh-130px)]">
+      <div className=" overflow-y-auto pb-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-4">
           {Array(8)
             .fill(null)
             .map((_, i) => (
               <div
                 key={i}
-                className="rounded-lg border bg-card p-4 shadow-sm flex flex-col h-[150px]"
+                className="rounded-lg border bg-card p-4 shadow-sm flex flex-col h-[130px]"
               >
                 <div className="flex-none">
                   <Skeleton className="h-7 w-[80%]" />
@@ -24,7 +24,7 @@ export default function DashboardLoading() {
         </div>
       </div>
 
-      <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+      <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6 mt-3">
         <div className="rounded-lg border bg-card p-5 shadow-sm flex flex-col h-full">
           <div className="flex-none flex items-center justify-between mb-4">
             <Skeleton className="h-5 w-[180px]" />

@@ -1,10 +1,14 @@
 import GlassMorphicCard from "@/components/ui/glassmorphic-card";
 import UserAvatar from "@/components/user-avatar";
+import { getCurrentUser } from "@/lib/static-data";
+import UserMenu from "./user-menu";
 
 export default function UserHeader() {
+  const user = getCurrentUser();
   return (
-    <GlassMorphicCard className="flex items-center w-16  p-1 rounded-l-xl">
-      <UserAvatar firstName="John" lastName="Doe" avatar_url="" />
+    <GlassMorphicCard className="flex items-center w-16  px-2  py-1 rounded-l-xl space-x-1">
+      <UserAvatar user={user} />
+      <UserMenu user={user} />
     </GlassMorphicCard>
   );
 }

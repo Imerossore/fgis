@@ -3,22 +3,13 @@
 import { cn } from "@/lib/utils";
 import { useSideNav } from "./side-nav-context";
 import { NavLink } from "./nav-link";
-import {
-  ChartPie,
-  FileChartColumn,
-  LayoutDashboard,
-  Settings,
-  Users2,
-} from "lucide-react";
 import SideNavFooter from "./side-nav-footer";
 import SideNavHeader from "./side-nav-header";
+import { getAccessibleNavigation } from "@/lib/static-data";
 
-export default function SideNav({ userRole }: { userRole: string }) {
+export default function SideNav() {
   const { isExpanded } = useSideNav();
-
-  if (userRole) {
-    console.log(userRole);
-  }
+  const navigation = getAccessibleNavigation();
 
   return (
     <div
@@ -39,58 +30,26 @@ export default function SideNav({ userRole }: { userRole: string }) {
           </div>
 
           <ul className="flex-1 p-2 space-y-1 overflow-y-auto">
-            {isExpanded && (
-              <li className="px-3 py-2 text-sm font-medium text-muted-foreground">
-                Main Menu
-              </li>
-            )}
+            {navigation.map((section, sectionIndex) => (
+              <div key={`section-${sectionIndex}`}>
+                {isExpanded && (
+                  <li className="px-3 py-2 text-sm font-medium text-muted-foreground">
+                    {section.title}
+                  </li>
+                )}
 
-            <li>
-              <NavLink
-                href="/"
-                name="Dasbhboard"
-                icon={<LayoutDashboard />}
-                exact
-              />
-            </li>
-
-            <li>
-              <NavLink href="/charts" name="Charts" icon={<ChartPie />} />
-            </li>
-
-            <li>
-              <NavLink
-                href="/test"
-                name="Accomplishments"
-                icon={<FileChartColumn />}
-              />
-            </li>
-
-            <li>
-              <NavLink
-                href="/user-management"
-                name="User Management"
-                icon={<Users2 />}
-              />
-            </li>
-
-            {isExpanded && (
-              <li className="px-3 py-2 mt-3 text-sm font-medium text-muted-foreground">
-                Other Menu
-              </li>
-            )}
-
-            <li>
-              <NavLink
-                href="/reports"
-                name="Reports"
-                icon={<FileChartColumn />}
-              />
-            </li>
-
-            <li>
-              <NavLink href="/setting" name="Setting" icon={<Settings />} />
-            </li>
+                {section.items.map((item, itemIndex) => (
+                  <li key={`item-${sectionIndex}-${itemIndex}`}>
+                    <NavLink
+                      href={item.href}
+                      name={item.name}
+                      icon={item.icon}
+                      exact={item.exact}
+                    />
+                  </li>
+                ))}
+              </div>
+            ))}
           </ul>
 
           <div

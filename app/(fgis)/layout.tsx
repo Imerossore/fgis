@@ -2,6 +2,7 @@ import Image from "next/image";
 import Header from "../../components/shared/Header";
 import SideNav from "../../components/shared/SideNav";
 import { SideNavProvider } from "../../components/shared/SideNav/side-nav-context";
+import PathDisplay from "@/components/path-display";
 
 export default function HomeLayout({
   children,
@@ -22,10 +23,13 @@ export default function HomeLayout({
         </div>
 
         <div className="flex h-full relative z-10">
-          <SideNav userRole="admin" />
+          <SideNav />
           <div className="flex flex-col flex-1 overflow-auto">
             <Header />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 pt-2">
+              <PathDisplay />
+              {children}
+            </main>
           </div>
         </div>
       </div>

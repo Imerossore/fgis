@@ -10,7 +10,7 @@ export default function GlassMorphicCard({
   return (
     <div
       className={cn(
-        "bg-white/15 backdrop-blur-sm border shadow-md ",
+        "bg-white/10 backdrop-blur-sm border shadow-md ",
         className
       )}
     >

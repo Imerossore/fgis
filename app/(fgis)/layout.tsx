@@ -11,7 +11,7 @@ export default function HomeLayout({
 }) {
   return (
     <SideNavProvider>
-      <div className="relative h-dvh overflow-hidden">
+      <div className="relative h-dvh overflow-hidden bg-primary dark:bg-background">
         <div className="fixed inset-0">
           <Image
             src={"/images/bg-pattern.svg"}
@@ -26,7 +26,7 @@ export default function HomeLayout({
           <SideNav />
           <div className="flex flex-col flex-1 overflow-auto">
             <Header />
-            <main className="flex-1 pt-2">
+            <main className="flex-1 pr-3 pt-3 md:pl-0 pl-3 space-y-2">
               <PathDisplay />
               {children}
             </main>

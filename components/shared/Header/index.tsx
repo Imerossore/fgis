@@ -9,7 +9,7 @@ export default function Header() {
   const { isExpanded, toggleSideNav, isMobileOpen, setMobileOpen } =
     useSideNav();
   return (
-    <header className=" py-2  flex flex-row items-center justify-between z-10 sticky top-0 bg-background">
+    <header className=" py-2  flex flex-row items-center justify-between z-10 sticky top-0 bg-primary dark:bg-background">
       <div>
         <Button
           variant="ghost"

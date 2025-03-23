@@ -37,8 +37,6 @@ const serviceActualData: ServiceData[] = [
 ];
 
 const currentMonth = format(new Date(), "MMMM yyyy");
-const currentDateTime = "2025-03-23 09:57:11";
-const currentUser = "Imerossore";
 
 // Define types for tooltip
 interface CustomTooltipProps {
@@ -107,12 +105,6 @@ export default function DivisionServicePieChart() {
             <CardDescription>
               Performance percentage breakdown - {currentMonth}
             </CardDescription>
-          </div>
-          <div className="text-right">
-            <div className="text-xs text-muted-foreground">
-              {currentDateTime}
-            </div>
-            <div className="text-xs font-medium mt-0.5">{currentUser}</div>
           </div>
         </div>
       </CardHeader>

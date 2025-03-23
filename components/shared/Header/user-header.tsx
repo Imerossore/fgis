@@ -6,7 +6,7 @@ import UserMenu from "./user-menu";
 export default function UserHeader() {
   const user = getCurrentUser();
   return (
-    <GlassMorphicCard className="flex items-center w-16  px-2  py-1 rounded-l-xl space-x-1 border-r-0">
+    <GlassMorphicCard className="flex items-center   px-2  py-1 rounded-l-x space-x-2.5 rounded-l-2xl border-r-0">
       <UserAvatar user={user} />
       <UserMenu user={user} />
     </GlassMorphicCard>

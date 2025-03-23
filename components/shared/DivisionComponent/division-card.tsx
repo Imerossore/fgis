@@ -22,7 +22,7 @@ export default function DivisionCard({ divisionName, link }: DivisionType) {
             <div className="flex-grow md:flex-none">
               <h3
                 className={cn(
-                  "text-lg md:text-xl lg:text-2xl font-medium transition-colors duration-300",
+                  "text-lg md:text-xl lg:text-2xl font-medium transition-colors duration-300 drop-shadow-lg",
                   "text-background dark:text-foreground "
                 )}
               >
@@ -38,7 +38,7 @@ export default function DivisionCard({ divisionName, link }: DivisionType) {
               <GlassMorphicCard className="rounded-full">
                 <Button
                   variant="ghost"
-                  className="transition-all duration-300 text-background dark:text-foreground "
+                  className="transition-all duration-300 text-background hover:text-background  dark:text-foreground rounded-full hover:bg-transparent"
                   asChild
                 >
                   <div className="group">

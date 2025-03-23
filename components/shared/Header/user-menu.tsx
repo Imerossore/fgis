@@ -35,7 +35,7 @@ export default function UserMenu({ user }: { user: UserType }) {
           <ChevronDown
             size={16}
             className={cn(
-              "text-primary/70 transition-transform duration-200",
+              "text-background dark:text-foreground transition-transform duration-200",
               open && "rotate-180"
             )}
           />

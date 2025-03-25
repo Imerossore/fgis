@@ -14,6 +14,8 @@ import { ChevronDown, LogOut, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { User as UserType } from "@/lib/types";
+import { logout } from "@/actions/auth";
+import { LogoutAlertDialog } from "./LogoutAlertDialog";
 
 export default function UserMenu({ user }: { user: UserType }) {
   const router = useRouter();
@@ -26,7 +28,24 @@ export default function UserMenu({ user }: { user: UserType }) {
     ? user.role.charAt(0).toUpperCase() + user.role.slice(1)
     : "Guest";
 
-  const handleLogout = () => {};
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+
+  const handleLogout = async () => {
+    setOpen(false); // Close dropdown after successful logout
+    await logout();
+  };
+
+  const handleLogoutClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation(); // Prevent event from bubbling and closing dropdown
+    setIsAlertOpen(true);
+  };
+
+  // Handle alert dialog close
+  const handleAlertOpenChange = (open: boolean) => {
+    setIsAlertOpen(open);
+    // Don't close the dropdown when the alert is closing
+  };
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
@@ -64,11 +83,17 @@ export default function UserMenu({ user }: { user: UserType }) {
         <DropdownMenuSeparator className="bg-white/10" />
         <DropdownMenuItem
           className="cursor-pointer text-destructive hover:bg-destructive/10"
-          onClick={handleLogout}
+          onClick={handleLogoutClick}
+          onSelect={(e) => e.preventDefault()}
         >
           <LogOut className="w-4 h-4 mr-2" />
           <span>Logout</span>
         </DropdownMenuItem>
+        <LogoutAlertDialog
+          isOpen={isAlertOpen}
+          onOpenChange={handleAlertOpenChange}
+          onConfirm={handleLogout}
+        />
       </DropdownMenuContent>
     </DropdownMenu>
   );

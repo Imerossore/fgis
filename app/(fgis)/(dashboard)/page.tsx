@@ -7,9 +7,7 @@ import GlassMorphicCard from "@/components/ui/glassmorphic-card";
 import DivisionServicePieChart from "@/components/shared/ChartsComponent/DivisionServicePieChart";
 import MonthlyComparisonBarChart from "@/components/shared/ChartsComponent/MonthlyComparisonBarChart";
 
-export default async function DashboardPage() {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
-
+export default function DashboardPage() {
   const divisions = getAccessibleDivisions();
 
   return (

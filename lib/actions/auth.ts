@@ -94,6 +94,7 @@ export async function registerAction(
       .eq("idNumber", idNumber);
 
     if (selectError) {
+      console.log(selectError);
       return {
         success: false,
         message: "An error occurred while checking for existing ID.",

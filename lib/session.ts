@@ -16,7 +16,6 @@ export async function encrypt(payload: SessionPayload) {
 
 export async function decrypt(session: string | undefined = "") {
   if (!session || undefined) {
-    console.log("Error decrypting session: session is empty or undefined");
     return null;
   }
 

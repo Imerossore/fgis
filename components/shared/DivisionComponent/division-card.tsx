@@ -13,7 +13,7 @@ export default function DivisionCard({ divisionName, link }: DivisionType) {
       <Link href={link} className="block outline-none">
         <GlassMorphicCard
           className={cn(
-            "p-4 md:p-5 rounded-xl transition-all duration-300",
+            "p-4 md:p-5 rounded-xl transition-all duration-300 dark:border-foreground/30",
             "shadow-sm hover:shadow-lg active:shadow",
             "hover:bg-white/25 active:bg-white/30 dark:hover:bg-slate-800/40"
           )}

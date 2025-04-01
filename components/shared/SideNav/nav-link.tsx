@@ -48,10 +48,12 @@ export function NavLink({ href, name, icon: Icon, exact = false }: NavItem) {
       <div
         className={cn(
           "h-6 w-6",
-          isActive ? "text-primary" : "text-primary/70 group-hover:text-primary"
+          isActive
+            ? "text-primary dark:text-foreground"
+            : "text-white/70 group-hover:text-white"
         )}
       >
-        <Icon />
+        <Icon className="text-primary" />
       </div>
 
       {isExpanded && <span>{name}</span>}

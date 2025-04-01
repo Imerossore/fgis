@@ -3,12 +3,15 @@ import Header from "../../components/shared/Header";
 import SideNav from "../../components/shared/SideNav";
 import { SideNavProvider } from "../../components/shared/SideNav/side-nav-context";
 import PathDisplay from "@/components/path-display";
+import { getUser } from "@/lib/dal";
 
-export default function HomeLayout({
+export default async function HomeLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const user = await getUser();
+
   return (
     <SideNavProvider>
       <div className="relative h-dvh overflow-hidden bg-primary dark:bg-background">
@@ -21,11 +24,10 @@ export default function HomeLayout({
             priority
           />
         </div>
-
         <div className="flex h-full relative z-10">
-          <SideNav />
+          <SideNav user={user} />
           <div className="flex flex-col flex-1 overflow-auto">
-            <Header />
+            <Header user={user} />
             <main className="flex-1 pr-3 pt-1 md:pl-0 pl-3 space-y-2">
               <PathDisplay />
               {children}

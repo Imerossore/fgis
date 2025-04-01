@@ -1,33 +1,34 @@
-import { NextResponse, NextRequest } from "next/server";
-import { getAuthUser } from "./lib/getAuthUser";
+import { NextRequest, NextResponse } from "next/server";
+import { decrypt } from "./lib/session";
 
-const publicRoutes = ["/login", "/register"];
-const protectedRoutes = ["/", "/setting", "/reports"];
+const authRoutes = ["/dashboard", "/setting"];
+const adminRoutes = ["/user-management"];
+const publicRoutes = ["/register", "/"];
 
-export async function middleware(request: NextRequest) {
-  const path = request.nextUrl.pathname;
+export default async function middleware(req: NextRequest) {
+  const path = req.nextUrl.pathname;
+  const cookie = req.cookies.get("session")?.value;
+  const session = await decrypt(cookie);
 
-  const user = await getAuthUser();
-  const userId = user?.id;
-
-  const isPublicRoute = publicRoutes.some((route) => path === route);
-
-  const isProtectedRoute =
-    protectedRoutes.some(
-      (route) => path === route || (route !== "/" && path.startsWith(route))
-    ) || path === "/";
-
-  if (isProtectedRoute && !userId) {
-    return NextResponse.redirect(new URL("/login", request.url));
-  }
-
-  if (isPublicRoute && userId) {
-    return NextResponse.redirect(new URL("/", request.url));
+  if (
+    adminRoutes.some((route) => path === route || path.startsWith(`${route}/`))
+  ) {
+    if (!session?.userId) {
+      return NextResponse.redirect(new URL("/", req.nextUrl));
+    }
+  } else if (
+    authRoutes.some((route) => path === route || path.startsWith(`${route}/`))
+  ) {
+    if (!session?.userId) {
+      return NextResponse.redirect(new URL("/", req.nextUrl));
+    }
+  } else if (publicRoutes.includes(path) && session?.userId) {
+    return NextResponse.redirect(new URL("/dashboard", req.nextUrl));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/", "/login", "/register", "/setting/:path*", "/reports/:path*"],
+  matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
 };

@@ -1,21 +1,28 @@
 import DivisionComponent from "@/components/shared/DivisionComponent";
-import { getAccessibleDivisions } from "@/lib/static-data";
+
 import { Button } from "@/components/ui/button";
-import { RefreshCw, ArrowRight } from "lucide-react";
-import Link from "next/link";
+import { RefreshCw } from "lucide-react";
 import GlassMorphicCard from "@/components/ui/glassmorphic-card";
 import DivisionServicePieChart from "@/components/shared/ChartsComponent/DivisionServicePieChart";
 import MonthlyComparisonBarChart from "@/components/shared/ChartsComponent/MonthlyComparisonBarChart";
+import { getAccessibleDivisions } from "@/lib/data/access_control";
+import { getUser } from "@/lib/dal";
+import { redirect } from "next/navigation";
 
-export default function DashboardPage() {
-  const divisions = getAccessibleDivisions();
+export default async function DashboardPage() {
+  const user = await getUser();
+  const divisions = getAccessibleDivisions({ user });
+
+  if (!user.role) {
+    redirect("/setting");
+  }
 
   return (
     <div className="grid grid-cols-1 space-y-4 max-w-full">
       <DivisionComponent divisions={divisions} />
 
       <div>
-        <GlassMorphicCard className="flex flex-row justify-between items-center  mb-3 gap-2 rounded-lg p-2 px-2 border-none">
+        <GlassMorphicCard className="flex flex-row justify-between items-center  mb-3 gap-2 rounded-lg py-2 px-4 border-none">
           <div className="flex-1 min-w-0 ">
             <h2 className="text-sm sm:text-lg font-semibold tracking-tight text-white line-clamp-1">
               Key Metrics
@@ -33,17 +40,6 @@ export default function DashboardPage() {
             >
               <RefreshCw className="h-4 w-4 text-white" />
               <span className="sr-only">Refresh data</span>
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              asChild
-              className="gap-1 h-8 text-white hover:bg-white/20 hover:text-white text-sm px-3 whitespace-nowrap"
-            >
-              <Link href="/charts">
-                See more
-                <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
             </Button>
           </div>
         </GlassMorphicCard>

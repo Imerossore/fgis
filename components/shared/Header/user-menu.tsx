@@ -13,15 +13,16 @@ import {
 import { ChevronDown, LogOut, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
-import { User as UserType } from "@/lib/types";
-import { logout } from "@/actions/auth";
+
 import { LogoutAlertDialog } from "./LogoutAlertDialog";
+import { logoutAction } from "@/lib/actions/auth";
+import { UserType } from "@/lib/types";
 
 export default function UserMenu({ user }: { user: UserType }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const firstName = user?.firstname || "User";
-  const lastName = user?.lastname || "";
+  const firstName = user?.profile?.firstName || "User";
+  const lastName = user?.profile?.lastName || "";
   const fullName = `${firstName} ${lastName}`.trim();
 
   const role = user?.role
@@ -31,20 +32,18 @@ export default function UserMenu({ user }: { user: UserType }) {
   const [isAlertOpen, setIsAlertOpen] = useState(false);
 
   const handleLogout = async () => {
-    setOpen(false); // Close dropdown after successful logout
-    await logout();
+    setOpen(false);
+    await logoutAction();
   };
 
   const handleLogoutClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    e.stopPropagation(); // Prevent event from bubbling and closing dropdown
+    e.stopPropagation();
     setIsAlertOpen(true);
   };
 
-  // Handle alert dialog close
   const handleAlertOpenChange = (open: boolean) => {
     setIsAlertOpen(open);
-    // Don't close the dropdown when the alert is closing
   };
 
   return (

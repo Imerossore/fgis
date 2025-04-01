@@ -1,19 +1,20 @@
-import { User } from "@/lib/types";
+import { UserType } from "@/lib/types";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
-export default function UserAvatar({ user }: { user: User }) {
+export default function UserAvatar({ user }: { user: UserType }) {
   return (
     <Avatar>
       <AvatarImage
+        className="object-cover"
         src={
-          user?.avatar_url ||
-          `https://api.dicebear.com/7.x/initials/svg?seed=${user?.firstname} ${user?.lastname}`
+          user?.profile?.avatarUrl ||
+          `https://api.dicebear.com/7.x/initials/svg?seed=${user?.profile?.firstName} ${user?.profile?.lastName}`
         }
-        alt={`${user?.firstname} ${user?.lastname}`}
+        alt={`${user?.profile?.firstName} ${user?.profile?.lastName}`}
       />
       <AvatarFallback>
-        {user?.firstname && user?.lastname
-          ? `${user.firstname[0]}${user.lastname[0]}`
+        {user?.profile?.firstName && user?.profile?.lastName
+          ? `${user.profile?.firstName[0]}${user.profile?.firstName[0]}`
           : ""}
       </AvatarFallback>
     </Avatar>

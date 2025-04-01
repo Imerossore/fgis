@@ -5,14 +5,15 @@ import { useSideNav } from "./side-nav-context";
 import { NavLink } from "./nav-link";
 import SideNavFooter from "./side-nav-footer";
 import SideNavHeader from "./side-nav-header";
-import { getAccessibleNavigation } from "@/lib/static-data";
+import { getAccessibleNavigation } from "@/lib/data/access_control";
 import { useEffect } from "react";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { UserType } from "@/lib/types";
 
-export default function SideNav() {
+export default function SideNav({ user }: { user: UserType }) {
   const { isExpanded, isMobileOpen, setMobileOpen } = useSideNav();
-  const navigation = getAccessibleNavigation();
+  const navigation = getAccessibleNavigation({ user });
 
   useEffect(() => {
     if (isMobileOpen) {

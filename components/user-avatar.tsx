@@ -14,7 +14,7 @@ export default function UserAvatar({ user }: { user: UserType }) {
       />
       <AvatarFallback>
         {user?.profile?.firstName && user?.profile?.lastName
-          ? `${user.profile?.firstName[0]}${user.profile?.firstName[0]}`
+          ? `${user.profile?.firstName[0]}${user.profile?.lastName[0]}`
           : ""}
       </AvatarFallback>
     </Avatar>

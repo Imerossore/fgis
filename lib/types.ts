@@ -23,6 +23,11 @@ export type NavSection = {
   items: NavItem[];
 };
 
+export type SubNavItem = {
+  href: string;
+  label: string;
+};
+
 export type Division = {
   id: number;
   divisionName: string;
@@ -32,7 +37,7 @@ export type Division = {
 export type UserType = {
   id: string;
   idNumber: string;
-  password: string;
+  password?: string;
   role?: UserRole;
   profile?: UserProfileType;
   created_at: Date;

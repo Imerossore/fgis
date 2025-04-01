@@ -1,7 +1,6 @@
 "use server";
 import { revalidatePath } from "next/cache";
 import { getUser } from "../dal";
-import { updateSession } from "../session";
 import { supabase } from "../supabase";
 import { ProfileFormSchema, ProfileState } from "../validations";
 import { uploadToCloudinary } from "./upload";
@@ -72,8 +71,8 @@ export async function createProfile(
     }
 
     if (result.error) throw result.error;
-    await updateSession();
-    revalidatePath("/");
+
+    revalidatePath("/setting");
 
     return {
       success: true,

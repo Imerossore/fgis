@@ -15,7 +15,7 @@ export default function RegisterForm() {
 
   useEffect(() => {
     if (isPending) {
-      toast.loading("Logging in...", { id: "register-toast" });
+      toast.loading("Creating your account...", { id: "register-toast" });
       return;
     }
 
@@ -24,10 +24,6 @@ export default function RegisterForm() {
         toast[state.success ? "success" : "error"](state.message, {
           id: "register-toast",
         });
-
-        if (state.success) {
-          router.push("/");
-        }
       } else {
         toast.dismiss("register-toast");
       }

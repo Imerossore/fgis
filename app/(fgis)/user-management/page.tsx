@@ -3,6 +3,7 @@ import PathDisplay from "@/components/path-display";
 import GlassMorphicCard from "@/components/ui/glassmorphic-card";
 import { getUsers } from "@/lib/actions/users";
 import { Suspense } from "react";
+import UsermanagementLoading from "./loading";
 
 export default function UserManagementPage() {
   return (
@@ -12,7 +13,7 @@ export default function UserManagementPage() {
         Manage user accounts by assigning roles. Only verified users will be
         able to log in and utilize the FGIS monitoring system.
       </p>
-      <Suspense>
+      <Suspense fallback={<UsermanagementLoading />}>
         <div>{VerifiedUsers()}</div>
       </Suspense>
     </GlassMorphicCard>

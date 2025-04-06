@@ -25,7 +25,7 @@ export function getAccessibleNavigation({ user }: { user: UserType }) {
 
     case "viewer":
     case "editor":
-      allowedRoutes = ["/", "/setting", "/reports"];
+      allowedRoutes = ["/dashboard", "/setting", "/reports/division-i"];
       break;
 
     default:

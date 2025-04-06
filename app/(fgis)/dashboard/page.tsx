@@ -12,6 +12,7 @@ import PathDisplay from "@/components/path-display";
 
 export default async function DashboardPage() {
   const user = await getUser();
+
   const divisions = getAccessibleDivisions({ user });
 
   if (!user.role) {
@@ -21,7 +22,9 @@ export default async function DashboardPage() {
   return (
     <div className="grid grid-cols-1 space-y-4 max-w-full">
       <PathDisplay />
-      <DivisionComponent divisions={divisions} />
+      <div className="h-[35dvh]">
+        <DivisionComponent divisions={divisions} userRole={user?.role} />
+      </div>
 
       <div>
         <GlassMorphicCard className="flex flex-row justify-between items-center  mb-3 gap-2 rounded-lg py-2 px-4 border-none">

@@ -8,6 +8,7 @@ import MonthlyComparisonBarChart from "@/components/shared/ChartsComponent/Month
 import { getAccessibleDivisions } from "@/lib/data/access_control";
 import { getUser } from "@/lib/dal";
 import { redirect } from "next/navigation";
+import PathDisplay from "@/components/path-display";
 
 export default async function DashboardPage() {
   const user = await getUser();
@@ -19,6 +20,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="grid grid-cols-1 space-y-4 max-w-full">
+      <PathDisplay />
       <DivisionComponent divisions={divisions} />
 
       <div>

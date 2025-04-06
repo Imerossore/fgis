@@ -1,9 +1,15 @@
 import { UserType } from "@/lib/types";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { cn } from "@/lib/utils";
 
-export default function UserAvatar({ user }: { user: UserType }) {
+interface UserAvatarProps {
+  user: UserType;
+  className?: string;
+}
+
+export default function UserAvatar({ user, className }: UserAvatarProps) {
   return (
-    <Avatar>
+    <Avatar className={cn(className)}>
       <AvatarImage
         className="object-cover"
         src={

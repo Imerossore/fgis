@@ -5,7 +5,7 @@ import {
   User2,
 } from "lucide-react";
 
-import { Division, NavSection } from "./types";
+import { Division as DivisionType, NavSection } from "./types";
 
 export const NAVIGATION: NavSection[] = [
   {
@@ -34,7 +34,7 @@ export const NAVIGATION: NavSection[] = [
     title: "Other Menu",
     items: [
       {
-        href: "/reports",
+        href: "/reports/division-i",
         name: "Reports",
         icon: FileChartColumn,
       },
@@ -47,40 +47,159 @@ export const NAVIGATION: NavSection[] = [
   },
 ];
 
-export const DIVISIONS: Division[] = [
+//Divisions and Systems
+
+export const DIVISIONS: DivisionType[] = [
   {
     id: 1,
-    divisionName: "division-1",
-    link: "/division-1/system_1",
+    divisionName: "division-i",
+    systems: [
+      {
+        id: 1,
+        systemName: "system1",
+        link: "/dashboard/division-i/system1",
+      },
+      {
+        id: 2,
+        systemName: "system2",
+        link: "/dashboard/division-i/system2",
+      },
+      {
+        id: 3,
+        systemName: "system3",
+        link: "/dashboard/division-i/system3",
+      },
+      {
+        id: 4,
+        systemName: "system4",
+        link: "/dashboard/division-i/system4",
+      },
+      {
+        id: 5,
+        systemName: "system5",
+        link: "/dashboard/division-i/system5",
+      },
+    ],
   },
   {
     id: 2,
-    divisionName: "division-2",
-    link: "/division-2/system_1",
+    divisionName: "division-ii",
+    systems: [
+      {
+        id: 1,
+        systemName: "system1",
+        link: "/dashboard/division-ii/system1",
+      },
+      {
+        id: 2,
+        systemName: "system2",
+        link: "/dashboard/division-ii/system2",
+      },
+      {
+        id: 3,
+        systemName: "system3",
+        link: "/dashboard/division-ii/system3",
+      },
+      {
+        id: 4,
+        systemName: "system4",
+        link: "/dashboard/division-ii/system4",
+      },
+      {
+        id: 5,
+        systemName: "system5",
+        link: "/dashboard/division-ii/system5",
+      },
+    ],
   },
   {
     id: 3,
-    divisionName: "division-3",
-    link: "/division-3/system_1",
+    divisionName: "division-iii",
+    systems: [
+      {
+        id: 1,
+        systemName: "system1",
+        link: "/dashboard/division-iii/system1",
+      },
+      {
+        id: 2,
+        systemName: "system2",
+        link: "/dashboard/division-iii/system2",
+      },
+      {
+        id: 3,
+        systemName: "system3",
+        link: "/dashboard/division-iii/system3",
+      },
+      {
+        id: 4,
+        systemName: "system4",
+        link: "/dashboard/division-iii/system4",
+      },
+      {
+        id: 5,
+        systemName: "system5",
+        link: "/dashboard/division-iii/system5",
+      },
+      {
+        id: 6,
+        systemName: "system6",
+        link: "/dashboard/division-iii/system6",
+      },
+      {
+        id: 7,
+        systemName: "system7",
+        link: "/dashboard/division-iii/system7",
+      },
+      {
+        id: 8,
+        systemName: "system8",
+        link: "/dashboard/division-iii/system8",
+      },
+    ],
   },
   {
     id: 4,
-    divisionName: "division-4",
-    link: "/division-4/system_1",
+    divisionName: "division-iv",
+    systems: [
+      {
+        id: 1,
+        systemName: "system1",
+        link: "/dashboard/division-iv/system1",
+      },
+    ],
   },
   {
     id: 5,
-    divisionName: "division-5",
-    link: "/division-5/system_1",
+    divisionName: "division-v",
+    systems: [
+      {
+        id: 1,
+        systemName: "system1",
+        link: "/dashboard/division-v/system1",
+      },
+    ],
   },
   {
     id: 6,
-    divisionName: "division-6",
-    link: "/division-6/system_1",
+    divisionName: "division-vi",
+    systems: [
+      {
+        id: 1,
+        systemName: "system1",
+        link: "/dashboard/division-vi/system1",
+      },
+    ],
   },
   {
     id: 7,
     divisionName: "drd",
-    link: "/drd/system_1",
+    systems: [
+      {
+        id: 1,
+        systemName: "system1",
+        link: "/dashboard/drd/system1",
+      },
+    ],
   },
 ];

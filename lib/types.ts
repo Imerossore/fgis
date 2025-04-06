@@ -28,10 +28,16 @@ export type SubNavItem = {
   label: string;
 };
 
+export type System = {
+  id: number;
+  systemName: string;
+  link: string;
+};
+
 export type Division = {
   id: number;
   divisionName: string;
-  link: string;
+  systems: System[];
 };
 
 export type UserType = {
@@ -51,4 +57,28 @@ export type UserProfileType = {
   avatarUrl?: string;
   division?: string;
   created_at: Date;
+};
+
+type StatusDetail = {
+  header_id: string;
+  type: string;
+  actual?: number;
+  target?: number;
+  percentage: number;
+  status: string;
+};
+export type StatusHeader = {
+  id: string;
+  division: string;
+  system: string;
+  recorded_by: string;
+  review_status: string;
+  created_at: string;
+  updated_at: string;
+  details: StatusDetail[];
+};
+
+export type ActionState = {
+  success: boolean;
+  message: string;
 };

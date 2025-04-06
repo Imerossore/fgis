@@ -5,12 +5,12 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Division as DivisionType } from "@/lib/types";
 
-export default function DivisionCard({ divisionName, link }: DivisionType) {
+export default function DivisionCard({ divisionName, systems }: DivisionType) {
   const formattedDivisionName = divisionName.split("-").join(" ").toUpperCase();
 
   return (
     <div className="relative transition-all duration-300 ease-in-out transform hover:-translate-y-[5px] active:translate-y-0">
-      <Link href={link} className="block outline-none">
+      <Link href={systems[0].link} className="block outline-none">
         <GlassMorphicCard
           className={cn(
             "p-4 md:p-5 rounded-xl transition-all duration-300 dark:border-foreground/30",

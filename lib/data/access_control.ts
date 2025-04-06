@@ -1,5 +1,5 @@
 import { DIVISIONS, NAVIGATION } from "../constant";
-import { UserType } from "../types";
+import { SubNavItem, UserType } from "../types";
 
 export function getAccessibleDivisions({ user }: { user: UserType }) {
   if (user?.role === "administrator" || user?.role === "viewer") {
@@ -37,4 +37,17 @@ export function getAccessibleNavigation({ user }: { user: UserType }) {
     ...section,
     items: section.items.filter((item) => allowedRoutes.includes(item.href)),
   })).filter((section) => section.items.length > 0);
+}
+
+export function getDivisionSystemsAsNavItems(
+  divisionName: string
+): SubNavItem[] {
+  const division = DIVISIONS.find((div) => div.divisionName === divisionName);
+
+  if (!division) return [];
+
+  return division.systems.map((system) => ({
+    href: system.link,
+    label: system.systemName,
+  }));
 }

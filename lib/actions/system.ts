@@ -28,29 +28,62 @@ export async function sendSystemData(
   formData: FormData
 ): Promise<ActionState> {
   try {
-    // First, create the header record
+    const headerIdFromForm = formData.get("id") as string | null;
 
-    const { data: headerData, error: headerError } = await supabase
-      .from("status_header_tbl")
-      .insert({
-        division: formData.get("division") || "Unknown",
-        system: formData.get("system") || "Unknown",
-        recorded_by: formData.get("recorded_by") || "Unknown",
-        review_status: "pending",
-      })
-      .select("id")
-      .single();
+    // Compose header fields
+    const headerFields = {
+      division: formData.get("division") || "Unknown",
+      system: formData.get("system") || "Unknown",
+      recorded_by: formData.get("recorded_by") || "Unknown",
+      review_status: "pending",
+    };
 
-    if (headerError) {
-      console.error("Error creating header:", headerError);
-      return {
-        success: false,
-        message: "Error creating header record",
-      };
+    let header_id = headerIdFromForm;
+
+    if (header_id) {
+      // --- UPDATE: If id exists, update the header and delete the old details ---
+      const { error: updateHeaderError } = await supabase
+        .from("status_header_tbl")
+        .update(headerFields)
+        .eq("id", header_id);
+
+      if (updateHeaderError) {
+        console.error("Error updating header:", updateHeaderError);
+        return {
+          success: false,
+          message: "Error updating header record",
+        };
+      }
+
+      // Remove previous details for this header
+      const { error: deleteDetailError } = await supabase
+        .from("status_detail_tbl")
+        .delete()
+        .eq("header_id", header_id);
+
+      if (deleteDetailError) {
+        console.error("Error deleting old details:", deleteDetailError);
+        return {
+          success: false,
+          message: "Error updating detail records",
+        };
+      }
+    } else {
+      const { data: headerData, error: headerError } = await supabase
+        .from("status_header_tbl")
+        .insert(headerFields)
+        .select("id")
+        .single();
+
+      if (headerError) {
+        console.error("Error creating header:", headerError);
+        return {
+          success: false,
+          message: "Error creating header record",
+        };
+      }
+      header_id = headerData.id;
     }
-
-    // Get the header_id from the newly created header
-    const header_id = headerData.id;
 
     // Prepare the detail records
     const entriesCount = [...formData.entries()].filter(([key]) =>
@@ -58,7 +91,7 @@ export async function sendSystemData(
     ).length;
 
     const typeData = Array.from({ length: entriesCount }, (_, i) => ({
-      header_id, // Add the header_id to each detail record
+      header_id,
       type: formData.get(`type_${i}`),
       actual: formData.get(`actual_${i}`)
         ? Number(formData.get(`actual_${i}`))
@@ -72,16 +105,15 @@ export async function sendSystemData(
       status: formData.get(`status_${i}`) || "Ongoing",
     }));
 
-    // Insert the detail records
     const { error: detailError } = await supabase
       .from("status_detail_tbl")
       .insert(typeData);
 
     if (detailError) {
       console.error("Error creating details:", detailError);
-      // If detail insertion fails, you might want to delete the header
-      await supabase.from("status_header_tbl").delete().eq("id", header_id);
-
+      if (!headerIdFromForm) {
+        await supabase.from("status_header_tbl").delete().eq("id", header_id);
+      }
       return {
         success: false,
         message: "Error submitting details",
@@ -91,7 +123,9 @@ export async function sendSystemData(
 
     return {
       success: true,
-      message: "Data submitted successfully",
+      message: headerIdFromForm
+        ? "Data updated successfully"
+        : "Data submitted successfully",
     };
   } catch (error) {
     console.error("Error submitting data:", error);
@@ -101,7 +135,6 @@ export async function sendSystemData(
     };
   }
 }
-
 export async function getSystemData(): Promise<StatusHeader[]> {
   return unstable_cache(
     async () => {

@@ -82,3 +82,11 @@ export type ActionState = {
   success: boolean;
   message: string;
 };
+
+export type HeaderType = {
+  type: string;
+  actual?: number;
+  target?: number;
+  percentage: number;
+  status: string;
+};
